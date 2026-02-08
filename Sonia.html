@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Love You Sonia ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  min-height:100vh;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  overflow:hidden;
+}
+.container{
+  max-width:900px;
+  width:90%;
+}
+h1,h2{font-family:'Dancing Script',cursive; font-size:3rem;}
+p{font-size:1.2rem; line-height:1.7;}
+button{
+  padding:14px 35px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:#ff4d6d;
+  font-size:18px;
+  cursor:pointer;
+  margin:10px;
+  transition:0.3s;
+}
+button:hover{transform:scale(1.05)}
+.hidden{display:none;}
+
+/* SLIDESHOW */
+.slideshow{
+  position:relative;
+  width:80%;
+  max-width:450px;
+  margin:40px auto;
+  min-height:400px;
+}
+.slide{
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  opacity:0;
+  transition:opacity 1s ease, transform 1s ease;
+  transform:scale(1);
+}
+.slide.active{
+  opacity:1;
+  transform:scale(1.05);
+}
+.slide img{
+  width:100%;
+  border-radius:20px;
+}
+.slide-text{
+  margin-top:20px;
+  font-size:1.3rem;
+  line-height:1.7;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+  100%{transform:scale(1);}
+}
+.slide-text span{
+  display:inline-block;
+  animation:pulse 1s ease-in-out;
+}
+
+/* FLOATING EMOJIS */
+@keyframes floatUp{
+  0%{transform:translateY(0); opacity:1;}
+  100%{transform:translateY(-120vh); opacity:0;}
+}
+.emoji{
+  position:fixed;
+  font-size:25px;
+  animation:floatUp 5s linear forwards;
+  user-select:none;
+  pointer-events:none;
+}
+
+/* FIREWORK EMOJIS FOR PAGE 2 CELEBRATION */
+@keyframes firework{
+  0%{transform:scale(0.5) translate(0,0); opacity:1;}
+  100%{transform:scale(2) translate(var(--x), var(--y)); opacity:0;}
+}
+.firework{
+  position:absolute;
+  font-size:20px;
+  user-select:none;
+  pointer-events:none;
+  animation:firework 1.2s ease-out forwards;
+}
+
+/* CONFETTI */
+@keyframes confettiFall{to{transform:translateY(100vh);opacity:0;}}
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  opacity:0.8;
+  animation:confettiFall 3s linear forwards;
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+<button onclick="toggleMusic()" style="position:fixed;top:10px;right:10px;">🎵 Play Music</button>
+
+<div class="container">
+
+  <!-- PAGE 1: PROPOSAL QUESTION -->
+  <div id="page1" class="story-box">
+    <h2>Will you be my Valentine? 💝</h2>
+    <button onclick="nextPage(2)">YES 💖</button>
+    <button onclick="moveNo(this)">NO 🙈</button>
+  </div>
+
+  <!-- PAGE 2: LOVE QUIZ -->
+  <div id="page2" class="story-box hidden">
+    <h2>Quick Love Quiz 💕</h2>
+    <p>Let's see how well you know me 😌❤️</p>
+    <p>What’s my favorite thing about you?</p>
+    <button onclick="quizFirework()">Your smile 🥰</button>
+    <button onclick="quizFirework()">Your laugh 😂</button>
+    <button onclick="quizFirework()">Your hair 💁‍♀️</button>
+    <p id="quizFeedback" style="margin-top:15px;font-weight:bold;color:#ff4d6d;"></p>
+  </div>
+
+  <!-- PAGE 3: SLIDESHOW -->
+  <div id="page3" class="slideshow hidden">
+    <div class="slide active">
+      <img src="pic1.jpg" alt="Pic 1">
+      <div class="slide-text">
+        <span>You're mine 🫂❤️<br><br>
+        And I’m never letting you go — never.<br>
+        You’re my special and favourite person, and no one makes me as happy as you do 😊<br>
+        I won’t lie to you. I won’t ever make you sad — I promise 💖</span>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="pic2.jpg" alt="Pic 2">
+      <div class="slide-text">
+        <span>I know we fight sometimes, and I may have acted wrong before,<br>
+        but I can never stop caring for you or loving you,<br>
+        because you matter to me so much 😍<br>
+        From the day we met until today, you’re the one I always look for when I need someone 🥹</span>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="pic3.jpg" alt="Pic 3">
+      <div class="slide-text">
+        <span>You may think I have many people in my life — and it’s true —<br>
+        but none of them are as important as you 💗<br>
+        I don’t want anyone else. I only want you ❤️<br>
+        If I ever made you sad, I’m truly sorry 😭<br>
+        I may irritate you — that’s my birthright 😂<br>
+        but I will never make you cry. I promise.<br>
+        I love you so much, my Princess 💕👑</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: FINAL CELEBRATION -->
+  <div id="page4" class="story-box hidden">
+    <h1 style="font-family:'Dancing Script',cursive; font-size:4rem;">I love you, Sonia ❤️</h1>
+    <p style="font-family:'Dancing Script',cursive; font-size:2rem;">Forever and always 💖</p>
+  </div>
+
+</div>
+
+<script>
+let currentPage=1;
+const music=document.getElementById('bgMusic');
+let playing=false;
+
+/* MUSIC TOGGLE */
+function toggleMusic(){
+  if(!playing){music.play();playing=true;event.target.innerText='⏸ Stop Music'}
+  else{music.pause();playing=false;event.target.innerText='🎵 Play Music'}
+}
+
+// Autoplay music
+window.addEventListener('DOMContentLoaded',()=>{music.play().catch(()=>console.log('Autoplay blocked'))});
+
+/* PAGE NAVIGATION */
+function nextPage(pageNum){
+  document.getElementById('page'+currentPage).classList.add('hidden');
+  document.getElementById('page'+pageNum).classList.remove('hidden');
+  currentPage=pageNum;
+  if(pageNum===3){startSlideshow();}
+}
+
+/* NO BUTTON MOVEMENT */
+function moveNo(btn){
+  btn.style.position='fixed';
+  btn.style.left=Math.random()*80+'vw';
+  btn.style.top=Math.random()*80+'vh';
+}
+
+/* QUIZ FIREWORK CELEBRATION */
+function quizFirework(){
+  const feedback = document.getElementById('quizFeedback');
+  feedback.innerText="💖 You found my heart! 💖";
+  createFirework(40); // fireworks emojis explode
+  setTimeout(()=>nextPage(3),2000);
+}
+
+function createFirework(num){
+  const emojis = ['😍','🥰','💖','💗','❤️'];
+  for(let i=0;i<num;i++){
+    const f = document.createElement('div');
+    f.className='firework';
+    f.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+    f.style.left='50%';
+    f.style.top='50%';
+    const angle = Math.random()*2*Math.PI;
+    const distance = 100 + Math.random()*100;
+    f.style.setProperty('--x', distance*Math.cos(angle)+'px');
+    f.style.setProperty('--y', distance*Math.sin(angle)+'px');
+    f.style.fontSize = 15+Math.random()*20+'px';
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1200);
+  }
+}
+
+/* FLOATING EMOJIS ALL PAGES */
+function createFloatingEmojis(num){
+  const emojis = ['😍','🥰','💖','💗','❤️'];
+  for(let i=0;i<num;i++){
+    const e = document.createElement('div');
+    e.className='emoji';
+    e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left=Math.random()*100+'vw';
+    e.style.fontSize=15+Math.random()*20+'px';
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),5000);
+  }
+}
+setInterval(()=>{createFloatingEmojis(2);},500);
+
+/* SLIDESHOW */
+let slideIndex=0;
+let slides=document.querySelectorAll('#page3 .slide');
+
+function startSlideshow(){
+  slides.forEach((s,i)=>{if(i!==0)s.classList.remove('active');});
+  slideIndex=0;
+  let slideInterval=setInterval(()=>{
+    slides[slideIndex].classList.remove('active');
+    slideIndex++;
+    if(slideIndex>=slides.length){
+      clearInterval(slideInterval);
+      nextPage(4);
+      showConfetti();
+      return;
+    }
+    slides[slideIndex].classList.add('active');
+  },4000);
+}
+
+/* CONFETTI */
+function showConfetti(){
+  for(let i=0;i<100;i++){
+    const conf=document.createElement('div');
+    conf.className='confetti';
+    conf.style.backgroundColor=['#ff4d6d','#ffc0cb','#fff'][Math.floor(Math.random()*3)];
+    conf.style.left=Math.random()*100+'vw';
+    conf.style.top='-10px';
+    document.body.appendChild(conf);
+    setTimeout(()=>conf.remove(),3000);
+  }
+}
+</script>
+</body>
+</html>
